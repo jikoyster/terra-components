@@ -1,4 +1,3 @@
-// src/lib/supabase.ts  (or src/supabase/client.ts)
 import { createClient, processLock } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
