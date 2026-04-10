@@ -6,12 +6,17 @@ import './App.css'
 
 import PerfectComponent from './components/perfect-component'
 
+import Farms from './components/farms/farms'
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
     <PerfectComponent name='Jikoyster' />
+
+    <Farms/>
+
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
