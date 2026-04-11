@@ -11,22 +11,16 @@ export function useFarms() {
     async function load() {
       const data = await getFarms();
 
-
-      await updateFarm(12, {
-        name: "New Name",
-        region: "Updated Region",
-      });
+      await updateFarm(12, { 
+        name: "aaa",
+        region: "aaa",
+        yield: 11111 
+      }); // Example update, replace with actual logic
       
       setFarms(data);
       setLoading(false);
     }
 
-    async function update() {
-      await updateFarm(12,{
-        name: "Updated Farm",
-        region: "Updated Region",
-      });
-    }
     
     load();
   }, []);

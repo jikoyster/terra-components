@@ -1,10 +1,12 @@
 // src/services/FarmService.ts
 import { supabase } from "../../lib/supabaseClient";
 
+// definition of Farm interface and functions to interact with the "farms" table in Supabase
 export interface Farm {
   farm_id: number;
   name: string;
   region: string;
+  yield?: number; // Optional field, add more fields as necessary
 }
 
 export async function getFarms(): Promise<Farm[]> {
