@@ -12,7 +12,7 @@ export default function PerfectComponent(props: PerfectComponentProps) {
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
-        .from("farms") // 👈 change this
+        .from("farmers") // 👈 change this
         .select("*")
 
       if (error) {

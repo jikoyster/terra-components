@@ -6,16 +6,16 @@ import './App.css'
 
 import PerfectComponent from './components/perfect-component'
 
-import Farms from './components/farms/farms'
+import Farms from './components/farms/FarmList'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <PerfectComponent name='Jikoyster' />
+    {/* <PerfectComponent name='Jikoyster' /> */}
 
-    <Farms/>
+    <Farms/> 
 
       <section id="center">
         <div className="hero">
