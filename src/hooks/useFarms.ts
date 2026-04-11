@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getFarms } from "@/services/farms/FarmList";
-import type { Farm } from "@/services/farms/FarmList";
-import { updateFarm } from "../services/farms/FarmServices";
+import { getFarms } from "@/services/farms/FarmServices";
+import type { Farm } from "@/services/farms/FarmServices";
+import { updateFarm } from "@/services/farms/FarmServices";
 
 export function useFarms() {
   const [farms, setFarms] = useState<Farm[]>([]);

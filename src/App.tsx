@@ -6,7 +6,7 @@ import './App.css'
 
 import PerfectComponent from './components/perfect-component'
 
-import Farms from './components/farms/FarmList'
+import Farms from './components/farms/Farms'
 
 function App() {
   const [count, setCount] = useState(0)

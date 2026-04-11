@@ -6,13 +6,15 @@ export default function FarmList() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <ul>
-      {farms.map((farm) => (
+    <>  
+      <ul>
+      {farms.map((farm, counter:number) => (
         <li key={farm.farm_id}>
-          {farm.name} - {farm.region}
+          {counter + 1}.) {farm.name} - {farm.region}
         </li>
       ))}
     </ul>
+    </>
     
   );
 }
