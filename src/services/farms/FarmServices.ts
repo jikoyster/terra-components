@@ -53,3 +53,16 @@ export async function updateFarm(farm_id: number, farmData: Partial<Farm>): Prom
 
   return data && data.length > 0 ? data[0] : null;
 }
+
+// DELETE: Delete a farm by its ID
+export async function deleteFarm(farm_id: number): Promise<void> {
+  const { error } = await supabase
+    .from("farms")
+    .delete()
+    .eq("farm_id", farm_id);
+
+  if (error) {
+    console.error(error);
+    throw error;
+  }
+} 
