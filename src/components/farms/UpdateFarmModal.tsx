@@ -11,7 +11,9 @@ export function UpdateFarmModal({
   onClose: () => void; 
   onSave: (id: number, data: Partial<Farm>) => void;
 }) {
-  const [formData, setFormData] = useState<Partial<Farm>>({
+  type FormData = Partial<Pick<Farm, "name" | "region" | "yield" | "address" | "crops" | "hectares" | "carbon_sequestered">>;
+
+  const [formData, setFormData] = useState<FormData>({
     name: farm.name ?? "",
     region: farm.region ?? "",
     yield: farm.yield ?? 0,
@@ -21,7 +23,7 @@ export function UpdateFarmModal({
     carbon_sequestered: farm.carbon_sequestered ?? 0,
   });
 
-  const handleChange = (field: keyof Farm, value: string | number) => {
+  const handleChange = (field: keyof FormData, value: string | number) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -32,100 +34,83 @@ export function UpdateFarmModal({
   };
 
   return (
-    <div style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(0,0,0,0.5)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 1000,
-    }} onClick={onClose}>
-      <div style={{
-        backgroundColor: "white",
-        padding: "24px",
-        borderRadius: "8px",
-        width: "400px",
-        maxWidth: "90%",
-      }} onClick={(e) => e.stopPropagation()}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "16px" }}>
-          <h2 style={{ margin: 0 }}>Update Farm</h2>
-          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer" }}>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[1000]" onClick={onClose}>
+      <div className="bg-white p-6 rounded-lg w-[400px] max-w-[90%]" onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between mb-4">
+          <h2 className="m-0">Update Farm</h2>
+          <button onClick={onClose} className="bg-transparent border-none cursor-pointer">
             <X size={20} />
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "12px" }}>
-            <label style={{ display: "block", marginBottom: "4px" }}>Name</label>
+          <div className="mb-3">
+            <label className="block mb-1">Name</label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => handleChange("name", e.target.value)}
-              style={{ width: "100%", padding: "8px" }}
+              className="w-full p-2 border rounded"
             />
           </div>
-          <div style={{ marginBottom: "12px" }}>
-            <label style={{ display: "block", marginBottom: "4px" }}>Region</label>
+          <div className="mb-3">
+            <label className="block mb-1">Region</label>
             <input
               type="text"
               value={formData.region}
               onChange={(e) => handleChange("region", e.target.value)}
-              style={{ width: "100%", padding: "8px" }}
+              className="w-full p-2 border rounded"
             />
           </div>
-          <div style={{ marginBottom: "12px" }}>
-            <label style={{ display: "block", marginBottom: "4px" }}>Address</label>
+          <div className="mb-3">
+            <label className="block mb-1">Address</label>
             <input
               type="text"
               value={formData.address}
               onChange={(e) => handleChange("address", e.target.value)}
-              style={{ width: "100%", padding: "8px" }}
+              className="w-full p-2 border rounded"
             />
           </div>
-          <div style={{ marginBottom: "12px" }}>
-            <label style={{ display: "block", marginBottom: "4px" }}>Crops</label>
+          <div className="mb-3">
+            <label className="block mb-1">Crops</label>
             <input
               type="text"
               value={formData.crops}
               onChange={(e) => handleChange("crops", e.target.value)}
-              style={{ width: "100%", padding: "8px" }}
+              className="w-full p-2 border rounded"
             />
           </div>
-          <div style={{ display: "flex", gap: "12px" }}>
-            <div style={{ marginBottom: "12px", flex: 1 }}>
-              <label style={{ display: "block", marginBottom: "4px" }}>Yield</label>
+          <div className="flex gap-3">
+            <div className="mb-3 flex-1">
+              <label className="block mb-1">Yield</label>
               <input
                 type="number"
                 value={formData.yield ?? 0}
                 onChange={(e) => handleChange("yield", Number(e.target.value))}
-                style={{ width: "100%", padding: "8px" }}
+                className="w-full p-2 border rounded"
               />
             </div>
-            <div style={{ marginBottom: "12px", flex: 1 }}>
-              <label style={{ display: "block", marginBottom: "4px" }}>Hectares</label>
+            <div className="mb-3 flex-1">
+              <label className="block mb-1">Hectares</label>
               <input
                 type="number"
                 value={formData.hectares ?? 0}
                 onChange={(e) => handleChange("hectares", Number(e.target.value))}
-                style={{ width: "100%", padding: "8px" }}
+                className="w-full p-2 border rounded"
               />
             </div>
           </div>
-          <div style={{ marginBottom: "16px" }}>
-            <label style={{ display: "block", marginBottom: "4px" }}>Carbon Sequestered</label>
+          <div className="mb-4">
+            <label className="block mb-1">Carbon Sequestered</label>
             <input
               type="number"
               value={formData.carbon_sequestered ?? 0}
               onChange={(e) => handleChange("carbon_sequestered", Number(e.target.value))}
-              style={{ width: "100%", padding: "8px" }}
+              className="w-full p-2 border rounded"
             />
           </div>
-          <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
-            <button type="button" onClick={onClose} style={{ padding: "8px 16px" }}>Cancel</button>
-            <button type="submit" style={{ padding: "8px 16px", backgroundColor: "#2563eb", color: "white", border: "none" }}>Save</button>
+          <div className="flex gap-2 justify-end">
+            <button type="button" onClick={onClose} className="px-4 py-2 border rounded">Cancel</button>
+            <button type="submit" className="px-4 py-2 bg-blue-600 text-white border-none rounded">Save</button>
           </div>
         </form>
       </div>

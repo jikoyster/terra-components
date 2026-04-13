@@ -31,41 +31,41 @@ export default function FarmList() {
             onSave={handleCreate}
           />
         )}
-        <div style={{ marginBottom: "16px" }}>
-          <button onClick={() => setShowCreateModal(true)} style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+        <div className="mb-4">
+          <button onClick={() => setShowCreateModal(true)} className="flex items-center gap-1">
             <Plus size={16} /> Create Farm
           </button>
         </div>
-        <table>
-      <thead>
+        <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Region</th>
-          <th>Yield</th>
-          <th>Address</th>
-          <th>Crops</th>
-          <th>Hectares</th>
-          <th>Carbon Sequestered</th>
-          <th>Actions</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Region</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Yield</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Address</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Crops</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hectares</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Carbon Sequestered</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="bg-white divide-y divide-gray-200">
         {farms.map((farm) => (
           <tr key={farm.farm_id}>
-            <td>{farm.farm_id}</td>
-            <td>{farm.name ?? "-"}</td>
-            <td>{farm.region ?? "-"}</td>
-            <td>{farm.yield ?? "-"}</td>
-            <td>{farm.address ?? "-"}</td>
-            <td>{farm.crops ?? "-"}</td>
-            <td>{farm.hectares ?? "-"}</td>
-            <td>{farm.carbon_sequestered ?? "-"}</td>
-            <td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.farm_id}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.name ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.region ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.yield ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.address ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.crops ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.hectares ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">{farm.carbon_sequestered ?? "-"}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm">
               <button onClick={() => setEditingFarm(farm)} title="Update">
                 <Pencil size={16} />
               </button>
-              <button onClick={() => confirmDelete(farm.farm_id)} title="Delete" style={{ marginLeft: "8px" }}>
+              <button onClick={() => confirmDelete(farm.farm_id)} title="Delete" className="ml-2">
                 <Trash2 size={16} />
               </button>
             </td>

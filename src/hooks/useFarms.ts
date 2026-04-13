@@ -31,9 +31,9 @@ export function useFarms() {
     }
   }, []);
 
-  const handleCreate = useCallback(async (data: Omit<Farm, "farm_id">) => {
+  const handleCreate = useCallback(async (data: Omit<Farm, "farm_id" | "created_at" | "updated_at">) => {
     try {
-      await createFarm(data);
+      await createFarm(data as Omit<Farm, "farm_id">);
       const updatedFarms = await getFarms();
       setFarms(updatedFarms);
     } catch (error) {
