@@ -4,9 +4,15 @@ import { supabase } from "../../lib/supabaseClient";
 // definition of Farm interface and functions to interact with the "farms" table in Supabase
 export interface Farm {
   farm_id: number;
-  name: string;
-  region: string;
-  yield?: number; // Optional field, add more fields as necessary
+  name: string | null;
+  region: string | null;
+  yield: number | null;
+  address: string | null;
+  crops: string | null;
+  hectares: number | null;
+  carbon_sequestered: number | null;
+  created_at: string | null;
+  updated_at: string | null;
 }
 
 // CREATE: Add a new farm
@@ -44,14 +50,16 @@ export async function updateFarm(farm_id: number, farmData: Partial<Farm>): Prom
   const { data, error } = await supabase
     .from("farms")
     .update(farmData)
-    .eq("farm_id", farm_id);
+    .eq("farm_id", farm_id)
+    .select()
+    .single();
 
   if (error) {
     console.error(error);
     throw error;
   }
 
-  return data && data.length > 0 ? data[0] : null;
+  return data;
 }
 
 // DELETE: Delete a farm by its ID

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { getFarms } from "@/services/farms/FarmServices";
+import { getFarms, updateFarm, deleteFarm } from "@/services/farms/FarmServices";
 import type { Farm } from "@/services/farms/FarmServices";
-import { updateFarm, createFarm, deleteFarm } from "@/services/farms/FarmServices";
 
 export function useFarms() {
   const [farms, setFarms] = useState<Farm[]>([]);
@@ -10,20 +9,23 @@ export function useFarms() {
   useEffect(() => {
     async function load() {
       const data = await getFarms();
-
-      // await createFarm({
-      //   name: "New Farm",
-      //   region: "Unknown",
-      //   yield: 0,
-      // });
-
       setFarms(data);
       setLoading(false);
     }
 
-    
     load();
   }, []);
 
-  return { farms, loading, setFarms };
+  const handleDelete = async (farm_id: number) => {
+    await deleteFarm(farm_id);
+    setFarms(farms.filter(f => f.farm_id !== farm_id));
+  };
+
+  const handleUpdate = async (farm_id: number, farmData: Partial<Farm>) => {
+    await updateFarm(farm_id, farmData);
+    const data = await getFarms();
+    setFarms(data);
+  };
+
+  return { farms, loading, setFarms, handleDelete, handleUpdate };
 }

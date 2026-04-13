@@ -5,7 +5,7 @@ interface PerfectComponentProps {
   name: string
 }
 
-export default function PerfectComponent(props: PerfectComponentProps) {
+export default function PerfectComponent(_props: PerfectComponentProps) {
   const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
