@@ -2,6 +2,16 @@ import { useState } from "react";
 import type { Farm } from "@/services/farms/FarmServices";
 import { X } from "lucide-react";
 
+type FormData = {
+  name: string;
+  region: string;
+  yield: number;
+  address: string;
+  crops: string;
+  hectares: number;
+  carbon_sequestered: number;
+};
+
 export function UpdateFarmModal({ 
   farm, 
   onClose, 
@@ -11,8 +21,6 @@ export function UpdateFarmModal({
   onClose: () => void; 
   onSave: (id: number, data: Partial<Farm>) => void;
 }) {
-  type FormData = Partial<Pick<Farm, "name" | "region" | "yield" | "address" | "crops" | "hectares" | "carbon_sequestered">>;
-
   const [formData, setFormData] = useState<FormData>({
     name: farm.name ?? "",
     region: farm.region ?? "",

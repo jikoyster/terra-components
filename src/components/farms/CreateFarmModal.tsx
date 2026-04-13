@@ -1,16 +1,23 @@
 import { useState } from "react";
-import type { Farm } from "@/services/farms/FarmServices";
 import { X } from "lucide-react";
+
+type FormData = {
+  name: string;
+  region: string;
+  yield: number | null;
+  address: string;
+  crops: string;
+  hectares: number | null;
+  carbon_sequestered: number | null;
+};
 
 export function CreateFarmModal({ 
   onClose, 
   onSave 
 }: { 
   onClose: () => void; 
-  onSave: (data: Omit<Farm, "farm_id">) => void;
+  onSave: (data: FormData) => void;
 }) {
-  type FormData = Omit<Farm, "farm_id" | "created_at" | "updated_at">;
-
   const [formData, setFormData] = useState<FormData>({
     name: "",
     region: "",

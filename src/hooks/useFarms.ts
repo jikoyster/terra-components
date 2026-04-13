@@ -31,7 +31,15 @@ export function useFarms() {
     }
   }, []);
 
-  const handleCreate = useCallback(async (data: Omit<Farm, "farm_id" | "created_at" | "updated_at">) => {
+  const handleCreate = useCallback(async (data: {
+    name: string;
+    region: string;
+    yield: number | null;
+    address: string;
+    crops: string;
+    hectares: number | null;
+    carbon_sequestered: number | null;
+  }) => {
     try {
       await createFarm(data as Omit<Farm, "farm_id">);
       const updatedFarms = await getFarms();
