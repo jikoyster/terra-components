@@ -31,5 +31,15 @@ export function useFarms() {
     }
   }, []);
 
-  return { farms, loading, handleDelete, handleUpdate };
+  const handleCreate = useCallback(async (data: Omit<Farm, "farm_id">) => {
+    try {
+      await createFarm(data);
+      const updatedFarms = await getFarms();
+      setFarms(updatedFarms);
+    } catch (error) {
+      console.error("Error creating farm:", error);
+    }
+  }, []);
+
+  return { farms, loading, handleDelete, handleUpdate, handleCreate };
 }

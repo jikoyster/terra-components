@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useFarms } from "@/hooks/useFarms"; 
 import type { Farm } from "@/services/farms/FarmServices";
 import { UpdateFarmModal } from "./UpdateFarmModal";
-import { Pencil, Trash2 } from "lucide-react";
+import { CreateFarmModal } from "./CreateFarmModal";
+import { Pencil, Trash2, Plus } from "lucide-react";
 
 export default function FarmList() {
-    const { farms, handleDelete, handleUpdate } = useFarms(); 
+    const { farms, handleDelete, handleUpdate, handleCreate } = useFarms(); 
     const [editingFarm, setEditingFarm] = useState<Farm | null>(null);
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     return (  
         <>
@@ -17,6 +19,17 @@ export default function FarmList() {
             onSave={handleUpdate}
           />
         )}
+        {showCreateModal && (
+          <CreateFarmModal 
+            onClose={() => setShowCreateModal(false)}
+            onSave={handleCreate}
+          />
+        )}
+        <div style={{ marginBottom: "16px" }}>
+          <button onClick={() => setShowCreateModal(true)} style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <Plus size={16} /> Create Farm
+          </button>
+        </div>
         <table>
       <thead>
         <tr>
