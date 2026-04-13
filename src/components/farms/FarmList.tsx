@@ -10,6 +10,12 @@ export default function FarmList() {
     const [editingFarm, setEditingFarm] = useState<Farm | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    const confirmDelete = (farmId: number) => {
+        if (window.confirm("Are you sure you want to delete this farm?")) {
+            handleDelete(farmId);
+        }
+    };
+
     return (  
         <>
         {editingFarm && (
@@ -59,7 +65,7 @@ export default function FarmList() {
               <button onClick={() => setEditingFarm(farm)} title="Update">
                 <Pencil size={16} />
               </button>
-              <button onClick={() => handleDelete(farm.farm_id)} title="Delete" style={{ marginLeft: "8px" }}>
+              <button onClick={() => confirmDelete(farm.farm_id)} title="Delete" style={{ marginLeft: "8px" }}>
                 <Trash2 size={16} />
               </button>
             </td>
