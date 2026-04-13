@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getFarms, updateFarm, deleteFarm } from "@/services/farms/FarmServices";
+import { useEffect, useState, useCallback } from "react";
+import { getFarms, deleteFarm, updateFarm, createFarm } from "@/services/farms/FarmServices";
 import type { Farm } from "@/services/farms/FarmServices";
 
 export function useFarms() {
@@ -9,6 +9,7 @@ export function useFarms() {
   useEffect(() => {
     async function load() {
       const data = await getFarms();
+
       setFarms(data);
       setLoading(false);
     }
@@ -16,16 +17,19 @@ export function useFarms() {
     load();
   }, []);
 
-  const handleDelete = async (farm_id: number) => {
-    await deleteFarm(farm_id);
-    setFarms(farms.filter(f => f.farm_id !== farm_id));
-  };
+  const handleDelete = useCallback(async (id: number) => {
+    await deleteFarm(id);
+    setFarms((prev) => prev.filter((farm) => farm.farm_id !== id));
+  }, []);
 
-  const handleUpdate = async (farm_id: number, farmData: Partial<Farm>) => {
-    await updateFarm(farm_id, farmData);
-    const data = await getFarms();
-    setFarms(data);
-  };
+  const handleUpdate = useCallback(async (id: number, data: Partial<Farm>) => {
+    const updated = await updateFarm(id, data);
+    if (updated) {
+      setFarms((prev) =>
+        prev.map((farm) => (farm.farm_id === id ? { ...farm, ...updated } : farm))
+      );
+    }
+  }, []);
 
-  return { farms, loading, setFarms, handleDelete, handleUpdate };
+  return { farms, loading, handleDelete, handleUpdate };
 }
