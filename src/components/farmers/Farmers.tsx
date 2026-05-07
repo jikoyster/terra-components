@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useFarmers } from "@/hooks/useFarmers";
+import FarmerList from "./FarmerList";
 import { Oval } from "react-loader-spinner";
 
 export default function Farmers() {
-  const [loading] = useState(false);
+  const { loading } = useFarmers();
 
   if (loading)
     return (
       <div className="flex min-h-[100svh] w-full items-center justify-center">
         <Oval
-          height={50}
-          width={50}
+          height={80}
+          width={80}
           color="#4fa94d"
           visible={true}
           ariaLabel="loading"
@@ -17,5 +18,5 @@ export default function Farmers() {
       </div>
     );
 
-  return <div className="p-6">Farmers component</div>;
+  return <FarmerList />;
 }
